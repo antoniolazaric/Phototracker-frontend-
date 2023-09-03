@@ -10,12 +10,13 @@
             <label for="name-input">Uredi korisničko ime</label>
             <input type="text" class="form-control" id="name-input" v-model="name" />
       </div>
-          <div>
-            <div v-for="photo in photos" :key="photo._id">
-              <img :src="resolvedImageUrls[photo._id]" alt="User Photo" />
-        <br>
-      </div>
-      </div>
+        
+      <div class="photo-gallery">
+          <div v-for="photo in photos" :key="photo._id" class="photo-item">
+            <img :src="`data:image/jpeg;base64,${toBase64(photo.url.data)}`" width="300" height="300" />
+          </div>
+        </div>
+
        <!-- Input for adding new photos -->
     <input type="file" @change="handleFileChange" />
     <button @click="addNewEntry(selectedFile)" class="btn btn-primary">Add Photo</button>
@@ -25,34 +26,15 @@
             <textarea class="form-control" id="equipment-input" rows="3" v-model="equipment"></textarea>
           </div>
           <!-- pictures-->
-          <div class="form-group" method="post" enctype = "multipart/form-data">
-            <input type="file"  v-on:change="event => addNewEntry(event)">
-          </div>
-          <div class="form-group">
-            <picture-input
-              ref="pictureInput"
-              @change="onChanged"
-              @remove="onRemoved"
-              :width="200"
-              :removable="true"
-              removeButtonClass="ui red button"
-              :height="200"
-              accept="image/jpeg, image/png, image/gif"
-              buttonClass="ui button primary"
-              :customStrings="{
-              upload: '<h1>Upload it!</h1>',
-              drag: 'Drag and drop your image here'}">
-            </picture-input>
-              </div>
+         
+          
 
             
           <br>
 
           <button type="submit" class="btn btn-primary">Save</button>
         </form>
-        <button @click="addNewEntry($event)" class="btn btn">
-            Save changes
-          </button>
+        
       </div>
     </div>
   </template>
@@ -66,15 +48,19 @@
   import FormDataPost from '../upload';
   import { Buffer } from 'buffer';
   
+  
 export default {
     name: 'ProfileView',
-
+    
     components: {
       PictureInput,
     },
     props: {
       userId:String
     },
+
+
+    
 data() {
       return {
         store,
@@ -86,7 +72,7 @@ data() {
         user: {},
         selectedFile: null,
         imageURL: '',
-
+        data: []
       };
     },
     async created() {
@@ -99,7 +85,7 @@ data() {
     },
 
     async mounted() {
-      console.log(store.login);
+     
   try {
     console.log("User ID:", this.id);
     const userId = this.id;
@@ -128,6 +114,8 @@ created() {
  
 },
 
+
+
 computed: {
   resolvedImageUrls() {
     const urls = {};
@@ -142,7 +130,11 @@ computed: {
 
 methods: {
 
-
+  toBase64(arr) {
+      return btoa(String.fromCharCode(...new Uint8Array(arr)));
+    },
+  
+ 
 
 async handleFileChange(event) {
       this.selectedFile = event.target.files[0];
@@ -293,7 +285,26 @@ async addNewEntry(event) {
   };
 </script>
 
-  <style scoped>
+  <style >
+  .photo-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  background-color: #f0f0f0; /* Set your desired backdrop color */
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.photo-item {
+  flex: 0 0 calc(33.33% - 10px); /* Adjust the width of each image item as per your layout */
+  max-width: calc(33.33% - 10px);
+}
+
+.photo-item img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 20px;
+}
   /* Add your styles here */
   </style>
   

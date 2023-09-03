@@ -2,12 +2,12 @@
   <div id="app">
     <nav class="navbar">
       <div class="nav-title">
-        <a class = "nav-link" href = "/about" >Phototracker </a>
+        <a class = "nav-link" href = "/home" >Phototracker </a>
       </div>
       <div class="nav-links">
         <a class = "nav-link" href = "/"> Home </a>
-        <a v-if = "isLoggedIn ===true" class = "nav-link" v-on:click= "authent" href = "/login" >Log In </a>
-        <a v-if = "isLoggedIn ===true" class = "nav-link" href = "/register" > SignUp </a>
+        <a v-if = "isLoggedIn ===false" class = "nav-link" v-on:click= "authent" href = "/login" >Log In </a>
+        <a v-if = "isLoggedIn ===false" class = "nav-link" href = "/register" > SignUp </a>
         <a v-if = "isLoggedIn ===false" class = "nav-link" href = "/profile" > Profile </a>
          
       </div>
