@@ -55,9 +55,7 @@ class PostService {
         store.login = data;
         store.isLoggedIn = true;
         console.log(data);
-      } catch (err) {
-        reject(err);
-      }
+      } catch (err) {}
     });
   }
   static getByUrl(id) {
@@ -102,9 +100,6 @@ class PostService {
       }
     });
   }
-
-
-  
 }
 
 export default PostService;
