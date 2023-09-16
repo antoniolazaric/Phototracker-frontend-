@@ -50,6 +50,10 @@ query.append("url", url);
 // eslint-disable-next-line
 url += query.toString();
 
+export const HomeView = {
+  name: "HomeView",
+};
+
 export default {
   name: "HomeView",
   data() {
