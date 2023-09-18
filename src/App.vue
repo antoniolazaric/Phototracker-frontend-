@@ -27,7 +27,7 @@
         <a v-if="isLoggedIn == false" class="nav-link" href="/register">
           SignUp
         </a>
-        <a v-if="isLoggedIn == false" class="nav-link" href="/profile">
+        <a v-if="isLoggedIn == true" class="nav-link" href="/profile">
           Profile
         </a>
       </div>
