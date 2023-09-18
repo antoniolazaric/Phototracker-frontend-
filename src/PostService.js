@@ -4,7 +4,7 @@ import axios from "axios";
 import store from "../src/store";
 //import { resolve, reject } from "core-js/fn/promise";
 
-const url = "http://localhost:5000";
+const url = "https://phototracker-backend.onrender.com/";
 
 class PostService {
   //get
@@ -28,7 +28,9 @@ class PostService {
   static getUsers() {
     return new Promise(async (resolve, reject) => {
       try {
-        const res = await axios.get("http://localhost:5000/api/posts");
+        const res = await axios.get(
+          "https://phototracker-backend.onrender.com/api/posts"
+        );
         const data = await res.data;
         resolve(resolve(data));
       } catch (err) {
@@ -47,9 +49,12 @@ class PostService {
   static async authent() {
     return new Promise(async (resolve, reject) => {
       try {
-        let res = await axios.get("http://localhost:5000/user/me", {
-          headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
-        });
+        let res = await axios.get(
+          "https://phototracker-backend.onrender.com/user/me",
+          {
+            headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
+          }
+        );
         let data = res.data;
 
         store.login = data;
@@ -62,7 +67,7 @@ class PostService {
     return new Promise(async (resolve, reject) => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/posts/get/" + id
+          "https://phototracker-backend.onrender.com/api/posts/get/" + id
         );
 
         const data = await res.data;

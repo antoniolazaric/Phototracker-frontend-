@@ -96,7 +96,7 @@ export default {
       console.log("User ID:", this.id);
       const userId = this.id;
       const res = await axios.get(
-        `http://localhost:5000/api/posts/${userId}/photos`,
+        `https://phototracker-backend.onrender.com/api/posts/${userId}/photos`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -110,7 +110,7 @@ export default {
       this.photos.forEach((photo) => {
         this.resolvedImageUrls[
           photo._id
-        ] = `http://localhost:5000/${photo.data}`;
+        ] = `https://phototracker-backend.onrender.com/${photo.data}`;
       });
     } catch (err) {
       console.error(err);
@@ -161,7 +161,7 @@ export default {
       const newEquippment = this.equipment;
       try {
         const res = await axios.patch(
-          `http://localhost:5000/api/posts/${userId}`,
+          `https://phototracker-backend.onrender.com/api/posts/${userId}`,
           {
             name: newName,
             equipment: newEquippment,
@@ -212,7 +212,7 @@ export default {
         formData.append("image", this.selectedFile);
         try {
           const res = await axios.post(
-            "http://localhost:5000/api/posts/picture2",
+            "https://phototracker-backend.onrender.com/api/posts/picture2",
             formData,
             { headers: { "Content-Type": "multipart/form-data" } }
           );
@@ -230,7 +230,7 @@ export default {
       try {
         const userId = this.id;
         const response = await axios.delete(
-          `http://localhost:5000/api/posts/${userId}/photos/${imageId}`,
+          `https://phototracker-backend.onrender.com/api/posts/${userId}/photos/${imageId}`,
           {
             headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
           }
@@ -261,7 +261,7 @@ export default {
         formData.append("image", this.selectedFile);
 
         const response = await axios.post(
-          `http://localhost:5000/api/posts/add-entry/${userId}`,
+          `https://phototracker-backend.onrender.com/api/posts/add-entry/${userId}`,
           formData,
           {
             headers: {
